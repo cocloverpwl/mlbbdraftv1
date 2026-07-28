@@ -1,0 +1,23 @@
+{
+  "name": "anadabane-mlbb",
+  "version": "5.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build-data.mjs && node scripts/mirror-hero-assets.mjs && node scripts/validate.mjs",
+    "mirror-images": "node scripts/mirror-hero-assets.mjs",
+    "validate": "node scripts/validate.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^10.7.10"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.3"
+  },
+  "overrides": {
+    "@opentelemetry/core": "2.9.0"
+  }
+}

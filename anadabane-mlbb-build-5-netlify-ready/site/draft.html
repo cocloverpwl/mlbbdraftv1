@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#E4DECF">
+    <meta name="app-version" content="5.0">
+    <meta
+      name="description"
+      content="Compare two five-hero MLBB drafts using official hero ratings, skill tags, damage types, roles, lanes, and ranked counter relationships."
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="anaDaBane MLBB — 5v5 Draft Lab">
+    <meta
+      property="og:description"
+      content="Build both teams. Compare offense, durability, control, AOE, mobility, sustain, damage balance, and direct counter pressure."
+    >
+    <meta property="og:image" content="/assets/og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>anaDaBane MLBB — 5v5 Draft Lab</title>
+    <link rel="icon" type="image/png" href="/assets/logo-green.png">
+    <link rel="apple-touch-icon" href="/assets/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Italiana&family=Jura:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="/styles.css?v=5">
+    <link rel="stylesheet" href="/draft.css?v=5">
+    <script src="/cache-reset.js?v=5" defer></script>
+    <script src="/draft.js?v=5" defer></script>
+  </head>
+  <body data-theme="ivory">
+    <a class="skip-link" href="#draft-board">Skip to draft board</a>
+
+    <header class="site-header">
+      <nav class="topbar" aria-label="Primary navigation">
+        <a class="brand-lockup" href="/" aria-label="anaDaBane MLBB home">
+          <picture>
+            <source srcset="/assets/logo-ivory.png" media="(prefers-color-scheme: dark)">
+            <img class="brand-mark" src="/assets/logo-green.png" alt="" width="22" height="22">
+          </picture>
+          <span class="wordmark">anaDaBane</span>
+        </a>
+        <span class="nav-title">MLBB / DRAFT LAB</span>
+        <div class="nav-actions">
+          <a class="quiet-button nav-link" href="/">Counter Field</a>
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            type="button"
+            aria-label="Switch to Ink theme"
+          >
+            <span aria-hidden="true">Ivory</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="draft-main" id="main-content">
+      <section class="draft-intro" aria-labelledby="draft-title">
+        <div>
+          <p class="eyebrow">04 / DRAFT INTELLIGENCE</p>
+          <h1 id="draft-title">Build five.<br>Read the field.</h1>
+          <p class="intro-note">
+            Pick your five heroes and the enemy five. The lab compares the
+            official hero ratings, skill tags, damage types, roles, lanes, and
+            ranked counter relationships already carried by the field guide.
+          </p>
+          <div class="status-line" id="draft-data-status" role="status" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Preparing draft profiles…</span>
+          </div>
+        </div>
+
+        <aside class="draft-method" aria-labelledby="draft-method-title">
+          <p class="panel-number">FIELD NOTE / 02</p>
+          <h2 id="draft-method-title">What the judgment means</h2>
+          <dl>
+            <div>
+              <dt>Strong</dt>
+              <dd>Your composition leads clearly in that measured category.</dd>
+            </div>
+            <div>
+              <dt>Fair</dt>
+              <dd>The two drafts are close enough that execution matters more.</dd>
+            </div>
+            <div>
+              <dt>Weak</dt>
+              <dd>The enemy composition carries the clearer category advantage.</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="draft-workspace" id="draft-board" aria-labelledby="draft-board-title">
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">05 / TEN SLOTS</p>
+            <h2 id="draft-board-title">Draft board</h2>
+          </div>
+          <button class="quiet-button reset-draft" id="reset-draft" type="button">
+            Reset draft
+          </button>
+        </header>
+
+        <div class="team-board">
+          <article class="draft-team is-active" id="ally-team">
+            <header>
+              <div>
+                <p class="eyebrow">YOUR SIDE</p>
+                <h3>Allied five</h3>
+              </div>
+              <button
+                class="team-target"
+                type="button"
+                data-target="ally"
+                aria-pressed="true"
+              >
+                Add allies · <span id="ally-count">0 / 5</span>
+              </button>
+            </header>
+            <div class="draft-slots" id="ally-slots" aria-label="Allied hero slots"></div>
+          </article>
+
+          <article class="draft-team" id="enemy-team">
+            <header>
+              <div>
+                <p class="eyebrow">OPPOSITION</p>
+                <h3>Enemy five</h3>
+              </div>
+              <button
+                class="team-target"
+                type="button"
+                data-target="enemy"
+                aria-pressed="false"
+              >
+                Add enemies · <span id="enemy-count">0 / 5</span>
+              </button>
+            </header>
+            <div class="draft-slots" id="enemy-slots" aria-label="Enemy hero slots"></div>
+          </article>
+        </div>
+
+        <div class="draft-picker">
+          <div class="picker-heading">
+            <div>
+              <p class="eyebrow">ACTIVE PICK</p>
+              <h3 id="active-team-label">Adding to your side</h3>
+            </div>
+            <p class="hero-count" id="draft-hero-count">— heroes</p>
+          </div>
+
+          <div class="finder-controls draft-finder-controls">
+            <label class="search-field" for="draft-search">
+              <span>Search hero</span>
+              <input
+                id="draft-search"
+                type="search"
+                autocomplete="off"
+                placeholder="Enter hero name"
+              >
+            </label>
+
+            <div class="role-filter" aria-labelledby="draft-role-label">
+              <span id="draft-role-label">Role</span>
+              <div
+                class="segmented-control"
+                id="draft-role-controls"
+                role="group"
+                aria-label="Filter draft heroes by role"
+              >
+                <button type="button" data-role="All" aria-pressed="true">All</button>
+                <button type="button" data-role="Tank" aria-pressed="false">Tank</button>
+                <button type="button" data-role="Fighter" aria-pressed="false">Fighter</button>
+                <button type="button" data-role="Assassin" aria-pressed="false">Assassin</button>
+                <button type="button" data-role="Mage" aria-pressed="false">Mage</button>
+                <button type="button" data-role="Marksman" aria-pressed="false">Marksman</button>
+                <button type="button" data-role="Support" aria-pressed="false">Support</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="draft-hero-grid" id="draft-hero-grid" aria-live="polite" aria-busy="true"></div>
+          <p class="empty-state" id="draft-empty-state" hidden>
+            No available hero matches this draft filter.
+          </p>
+          <button class="show-more" id="draft-show-more" type="button" hidden>
+            Show 18 more heroes
+          </button>
+        </div>
+      </section>
+
+      <section class="draft-analysis" id="draft-analysis" aria-labelledby="draft-analysis-title">
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">06 / COMPOSITION READ</p>
+            <h2 id="draft-analysis-title">Strong, fair, or weak?</h2>
+          </div>
+          <p class="draft-progress" id="draft-progress">Pick at least one hero on each side</p>
+        </header>
+
+        <article class="draft-verdict" id="draft-verdict" data-verdict="waiting">
+          <div>
+            <p class="eyebrow">FIELD VERDICT</p>
+            <strong id="verdict-label">Waiting for both sides</strong>
+          </div>
+          <p id="verdict-summary">
+            The comparison begins as soon as both teams have at least one hero.
+          </p>
+        </article>
+
+        <div class="analysis-grid">
+          <article class="analysis-card">
+            <header>
+              <p class="panel-number">ORIGINAL RATINGS / 01</p>
+              <h3>Official hero profile</h3>
+            </header>
+            <p>
+              Team averages from MLBB’s original Durability, Offense, Control
+              Effect, and Difficulty ratings.
+            </p>
+            <div class="comparison-list" id="rating-comparisons"></div>
+          </article>
+
+          <article class="analysis-card">
+            <header>
+              <p class="panel-number">SKILL COVERAGE / 02</p>
+              <h3>What each draft can do</h3>
+            </header>
+            <p>
+              Hero coverage counted from official skill tags and specialties,
+              including AOE, Burst, Mobility, Sustain, Poke, and Initiation.
+            </p>
+            <div class="comparison-list" id="capability-comparisons"></div>
+          </article>
+
+          <article class="analysis-card">
+            <header>
+              <p class="panel-number">DAMAGE MIX / 03</p>
+              <h3>Physical, magic, and true</h3>
+            </header>
+            <div class="team-facts" id="damage-comparison"></div>
+          </article>
+
+          <article class="analysis-card">
+            <header>
+              <p class="panel-number">ROLE &amp; LANE / 04</p>
+              <h3>Composition coverage</h3>
+            </header>
+            <div class="team-facts" id="coverage-comparison"></div>
+          </article>
+        </div>
+
+        <article class="matchup-card">
+          <header>
+            <div>
+              <p class="panel-number">DIRECT PRESSURE / 05</p>
+              <h3>Counter relationships inside this draft</h3>
+            </div>
+            <span class="matchup-score" id="matchup-score">No direct edge yet</span>
+          </header>
+          <div class="matchup-columns">
+            <div>
+              <h4>Your counter edges</h4>
+              <ul id="ally-matchup-edges"></ul>
+            </div>
+            <div>
+              <h4>Enemy counter edges</h4>
+              <ul id="enemy-matchup-edges"></ul>
+            </div>
+          </div>
+        </article>
+
+        <div class="draft-notes">
+          <p>
+            This is a composition comparison—not a guaranteed match prediction.
+            Player skill, items, emblems, lane assignments, patch changes, and
+            execution still decide the game.
+          </p>
+          <a class="source-link" href="https://www.mobilelegends.com/hero" target="_blank" rel="noreferrer">
+            Official hero source ↗
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <p class="footer-motto">Wisdom is navigation.</p>
+        <p>
+          Unofficial MLBB companion. Mobile Legends: Bang Bang and its game data
+          belong to Moonton.
+        </p>
+      </div>
+      <div class="footer-lockup">
+        <img src="/assets/logo-green.png" alt="" width="18" height="18">
+        <span>anaDaBane · MLBB Field Build 5.0</span>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#E4DECF">
+    <meta name="app-version" content="5.0">
+    <meta
+      name="description"
+      content="anaDaBane MLBB is a precise, mobile-first field guide for hero counters, matchups, teammates, and official patch updates."
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="anaDaBane MLBB — Counter Field Guide">
+    <meta
+      property="og:description"
+      content="Choose the enemy. Find your answer. Complete hero relationships sourced from the official MLBB website."
+    >
+    <meta property="og:image" content="/assets/og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>anaDaBane MLBB — Counter Field Guide</title>
+    <link rel="icon" type="image/png" href="/assets/logo-green.png">
+    <link rel="apple-touch-icon" href="/assets/icon-192.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Italiana&family=Jura:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="/styles.css?v=5">
+    <script src="/cache-reset.js?v=5" defer></script>
+    <script src="/app.js?v=5" defer></script>
+  </head>
+  <body data-theme="ivory">
+    <a class="skip-link" href="#main-content">Skip to hero finder</a>
+
+    <header class="site-header">
+      <nav class="topbar" aria-label="Primary navigation">
+        <a class="brand-lockup" href="#top" aria-label="anaDaBane MLBB home">
+          <picture>
+            <source srcset="/assets/logo-ivory.png" media="(prefers-color-scheme: dark)">
+            <img class="brand-mark" src="/assets/logo-green.png" alt="" width="22" height="22">
+          </picture>
+          <span class="wordmark">anaDaBane</span>
+        </a>
+        <span class="nav-title">MLBB / COUNTER FIELD</span>
+        <div class="nav-actions">
+          <a class="quiet-button nav-link" href="/draft.html">Draft Lab</a>
+          <button class="quiet-button install-button" id="install-button" type="button" hidden>
+            Install
+          </button>
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            type="button"
+            aria-label="Switch to Ink theme"
+          >
+            <span aria-hidden="true">Ivory</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="intro" id="top" aria-labelledby="page-title">
+        <div class="intro-copy">
+          <p class="eyebrow">01°N / DAILY MATCH REFERENCE</p>
+          <h1 id="page-title">Choose the enemy.<br>Find your answer.</h1>
+          <p class="intro-note">
+            A complete field guide to hero counters, vulnerabilities, and team
+            compatibility—prepared from public data used by the official MLBB website.
+          </p>
+          <div class="status-line" id="sync-status" role="status" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Preparing the latest field data…</span>
+          </div>
+        </div>
+
+        <aside class="relationship-key" aria-labelledby="relationship-key-title">
+          <p class="panel-number">FIELD NOTE / 01</p>
+          <h2 id="relationship-key-title">Read the relationships</h2>
+          <dl>
+            <div>
+              <dt>Countered By</dt>
+              <dd>Pick these heroes against the enemy you selected.</dd>
+            </div>
+            <div>
+              <dt>Strong Against</dt>
+              <dd>The selected hero performs well against these opponents.</dd>
+            </div>
+            <div>
+              <dt>Best Teammates</dt>
+              <dd>These allies improve the selected hero’s environment.</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="finder" aria-labelledby="finder-title">
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">02 / HERO INDEX</p>
+            <h2 id="finder-title">Select the hero you face</h2>
+          </div>
+          <p class="hero-count" id="hero-count">— heroes</p>
+        </header>
+
+        <div class="finder-controls">
+          <label class="search-field" for="hero-search">
+            <span>Search hero</span>
+            <input
+              id="hero-search"
+              type="search"
+              autocomplete="off"
+              placeholder="Enter hero name"
+            >
+          </label>
+
+          <div class="role-filter" aria-labelledby="role-filter-label">
+            <span id="role-filter-label">Role</span>
+            <div class="segmented-control" id="role-controls" role="group" aria-label="Filter heroes by role">
+              <button type="button" data-role="All" aria-pressed="true">All</button>
+              <button type="button" data-role="Tank" aria-pressed="false">Tank</button>
+              <button type="button" data-role="Fighter" aria-pressed="false">Fighter</button>
+              <button type="button" data-role="Assassin" aria-pressed="false">Assassin</button>
+              <button type="button" data-role="Mage" aria-pressed="false">Mage</button>
+              <button type="button" data-role="Marksman" aria-pressed="false">Marksman</button>
+              <button type="button" data-role="Support" aria-pressed="false">Support</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="detail-mount"></div>
+
+        <div class="browse-heading">
+          <div>
+            <p class="eyebrow">BROWSE / ROSTER</p>
+            <h3>Or choose from the hero index</h3>
+          </div>
+          <p class="hero-count hero-count-mobile" aria-hidden="true">
+            Search by name for the fastest answer
+          </p>
+        </div>
+
+        <div class="hero-grid" id="hero-grid" aria-live="polite" aria-busy="true">
+          <div class="loading-card" aria-hidden="true"></div>
+          <div class="loading-card" aria-hidden="true"></div>
+          <div class="loading-card" aria-hidden="true"></div>
+          <div class="loading-card" aria-hidden="true"></div>
+          <div class="loading-card" aria-hidden="true"></div>
+          <div class="loading-card" aria-hidden="true"></div>
+        </div>
+
+        <p class="empty-state" id="empty-state" hidden>
+          No hero matches this reference. Try another name or role.
+        </p>
+        <button class="show-more" id="show-more" type="button" hidden>
+          Show 12 more heroes
+        </button>
+      </section>
+
+      <section class="hero-detail" id="hero-detail" aria-labelledby="selected-hero-name" hidden>
+        <div class="detail-identity">
+          <div class="portrait-frame">
+            <img id="selected-hero-image" src="/assets/logo-green.png" alt="">
+            <span class="registration-mark top-left" aria-hidden="true"></span>
+            <span class="registration-mark bottom-right" aria-hidden="true"></span>
+          </div>
+          <div class="identity-copy">
+            <p class="eyebrow" id="selected-hero-reference">HERO / —</p>
+            <h2 id="selected-hero-name">Hero</h2>
+            <div class="tag-list" id="selected-hero-tags"></div>
+            <p id="selected-hero-story"></p>
+            <a
+              class="source-link"
+              id="selected-hero-source"
+              href="https://www.mobilelegends.com/hero"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Official hero record ↗
+            </a>
+          </div>
+        </div>
+
+        <div class="stat-readout" aria-label="Official hero statistics">
+          <p class="stat-context" id="stats-context">
+            Official ranked matches · past 7 days · All ranks
+          </p>
+          <div>
+            <span>Win rate</span>
+            <strong id="win-rate">—</strong>
+          </div>
+          <div>
+            <span>Pick rate</span>
+            <strong id="pick-rate">—</strong>
+          </div>
+          <div>
+            <span>Ban rate</span>
+            <strong id="ban-rate">—</strong>
+          </div>
+        </div>
+        <div class="relationship-panel">
+          <div
+            class="relationship-tabs"
+            id="relationship-tabs"
+            role="tablist"
+            aria-label="Hero relationships"
+          >
+            <button
+              id="tab-countered"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="relationship-results"
+              data-relationship="counteredBy"
+            >
+              Countered By
+            </button>
+            <button
+              id="tab-strong"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="relationship-results"
+              data-relationship="strongAgainst"
+            >
+              Strong Against
+            </button>
+            <button
+              id="tab-teammates"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="relationship-results"
+              data-relationship="bestTeammates"
+            >
+              Best Teammates
+            </button>
+          </div>
+
+          <div
+            class="relationship-content"
+            id="relationship-results"
+            role="tabpanel"
+            aria-live="polite"
+            tabindex="0"
+          >
+            <div class="relationship-copy">
+              <p class="eyebrow" id="relationship-label">PRIMARY ANSWER</p>
+              <h3 id="relationship-title">Pick against this hero</h3>
+              <p id="relationship-description"></p>
+            </div>
+            <div class="relationship-grid" id="relationship-grid"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="patch-section" aria-labelledby="patch-title">
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">03 / CHANGE LOG</p>
+            <h2 id="patch-title">Latest official patch</h2>
+          </div>
+        </header>
+        <article class="patch-card" id="patch-card">
+          <div class="patch-cover">
+            <img id="patch-cover" src="/assets/logo-green.png" alt="">
+          </div>
+          <div class="patch-copy">
+            <p class="eyebrow" id="patch-date">Checking official feed</p>
+            <h3 id="patch-name">Latest patch information</h3>
+            <p>
+              Hero releases, balance changes, and equipment adjustments are checked
+              during the daily sync.
+            </p>
+            <a
+              class="source-link"
+              id="patch-link"
+              href="https://www.mobilelegends.com/en/news/ALL/list"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Read official patch notes ↗
+            </a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <p class="footer-motto">Wisdom is navigation.</p>
+        <p>
+          Unofficial MLBB companion. Mobile Legends: Bang Bang and its game data
+          belong to Moonton.
+        </p>
+      </div>
+      <div class="footer-lockup">
+        <img src="/assets/logo-green.png" alt="" width="18" height="18">
+        <span>anaDaBane · MLBB Field Build 5.0</span>
+      </div>
+    </footer>
+  </body>
+</html>
